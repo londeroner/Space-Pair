@@ -7,11 +7,11 @@ public class GameSettings : MonoBehaviour
 {
     public int ObjectsNumber = 10;
 
-    public int ColumnsNumber = 5;
-
     public string GameSceneName = "";
 
     public static GameSettings instance;
+
+
 
     private void Awake()
     {
@@ -26,10 +26,20 @@ public class GameSettings : MonoBehaviour
     public void SetPairNumber(int number)
     {
         if (number % 2 == 1)
-            number++;
+            number--;
 
         ObjectsNumber = number;
 
         SceneManager.LoadScene(GameSceneName);
+    }
+
+    public string GetMaterialDirectoryName()
+    {
+        return "Materials/";
+    }
+
+    public string GetTextureDirectoryName()
+    {
+        return $"Graphics/PuzzleCat/Fruits/";
     }
 }
