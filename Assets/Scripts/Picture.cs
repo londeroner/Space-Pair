@@ -16,6 +16,7 @@ public class Picture : MonoBehaviour
 
     private Quaternion _currentRotation;
 
+    public PictureContent PictureContent;
 
     void Start()
     {
@@ -24,12 +25,17 @@ public class Picture : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!Revealed)
+        if (!Revealed && GameManager.instance.TurnState == TurnState.PlayerTurn && !GameManager.instance.IsGameFinished)
         {
-            Revealed = true;
-            GameManager.instance.RevealPicture(this);
-            StartCoroutine(LoopRotation(45, false));
+            Flip();
         }
+    }
+
+    public void Flip()
+    {
+        Revealed = true;
+        GameManager.instance.RevealPicture(this);
+        StartCoroutine(LoopRotation(45, false));
     }
 
     public void FlipBack()
@@ -62,6 +68,9 @@ public class Picture : MonoBehaviour
                 rot += (step * dir);
                 yield return null;
             }
+
+            Debug.Log("Animation stopped from loop");
+            GameManager.instance.GameState = GameState.NoAction;
         }
         else
         {
@@ -90,6 +99,16 @@ public class Picture : MonoBehaviour
         _secondMaterial = mat;
         _secondMaterial.mainTexture = Resources.Load(texturePath, typeof(Texture2D)) as Texture2D;
 
+        switch (mat.name)
+        {
+            case "Pic1":
+                PictureContent = PictureContent.Attack;
+                break;
+            case "Pic2":
+                PictureContent = PictureContent.Defence;
+                break;
+        }
+
         ///////////////////////////TEST
         ComparativeHash = _secondMaterial.ToString();
 
@@ -108,6 +127,17 @@ public class Picture : MonoBehaviour
 
     public void Disable()
     {
-        gameObject.SetActive(false);
+        PictureManager.PictureList.Remove(this);
+        Destroy(gameObject);
     }
+}
+
+public enum PictureContent
+{
+    NoContent = 0,
+    Attack = 1,
+    Defence = 2,
+    Resource = 3,
+    PassiveUtility = 4,
+    ActiveUtility = 5
 }

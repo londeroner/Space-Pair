@@ -6,10 +6,20 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public Transform PicFlightPosition;
+    public Ship PlayerShip;
+    public Ship EnemyShip;
+
+    public GameObject BulletPrefab;
 
     [HideInInspector]
     public RevealedState PuzzleRevealedState = RevealedState.NoRevealed;
+    [HideInInspector]
+    public GameState GameState = GameState.NoAction;
+    [HideInInspector]
+    public TurnState TurnState = TurnState.PlayerTurn;
+
+    [HideInInspector]
+    public bool IsGameFinished = false;
 
     public int FirstRevealedPic = -1;
     public int SecondRevealedPic = -1;
@@ -17,6 +27,10 @@ public class GameManager : MonoBehaviour
 
     private Picture _firstReveal;
     private Picture _secondReveal;
+
+    private int MoveAnimationCount = 0;
+
+    private AI _ai;
 
     void Awake()
     {
@@ -26,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        _ai = GetComponent<AI>();
     }
 
     void Update()
@@ -44,10 +59,11 @@ public class GameManager : MonoBehaviour
         {
             _secondReveal = picture;
 
+            Debug.Log("Animation started from reveal");
+            GameState = GameState.AnimationInProgress;
             if (_firstReveal.ComparativeHash == _secondReveal.ComparativeHash)
             {
-                StartCoroutine(MoveFoundPic(_firstReveal));
-                StartCoroutine(MoveFoundPic(_secondReveal));
+                StartCoroutine(MoveFoundPic(_firstReveal, _secondReveal));
             }
             else
             {
@@ -58,19 +74,63 @@ public class GameManager : MonoBehaviour
             _firstReveal = null;
             _secondReveal = null;
             PuzzleRevealedState = RevealedState.NoRevealed;
+
+            if (TurnState == TurnState.PlayerTurn)
+                TurnState = TurnState.AITurn;
+            else
+            {
+                TurnState = TurnState.PlayerTurn;
+                _ai.MakeTurn = false;
+            }
         }
     }
 
-    private IEnumerator MoveFoundPic(Picture pic)
+    private IEnumerator MoveFoundPic(Picture pic1, Picture pic2)
     {
+        var source = TurnState == TurnState.PlayerTurn ? PlayerShip : EnemyShip;
+        var target = TurnState == TurnState.PlayerTurn ? EnemyShip : PlayerShip;
         yield return new WaitForSeconds(0.5f);
-        while (pic.transform.position != PicFlightPosition.position)
+
+        StartCoroutine(MovePicToTarget(pic1, source, target));
+        StartCoroutine(MovePicToTarget(pic2, source, target));
+    }
+
+    private IEnumerator MovePicToTarget(Picture pic, Ship source, Ship target)
+    {
+        while (pic.transform.position != source.transform.position)
         {
-            pic.transform.position = Vector3.MoveTowards(pic.transform.position, PicFlightPosition.position, 7f * Time.deltaTime);
+            pic.transform.position = Vector3.MoveTowards(pic.transform.position, source.transform.position, 7f * Time.deltaTime);
             yield return 0;
         }
 
         pic.Disable();
+        MoveAnimationCount++;
+
+        if (MoveAnimationCount == 2)
+        {
+            MoveAnimationCount = 0;
+
+            PairAction(source, target, pic.PictureContent);
+        }
+    }
+
+    private void PairAction(Ship source, Ship target, PictureContent pictureContent)
+    {
+        switch (pictureContent)
+        {
+            case PictureContent.Attack:
+                StartCoroutine(source.Attack(target));
+                return;
+            case PictureContent.Defence:
+                GameState = GameState.NoAction;
+                return;
+            case PictureContent.Resource:
+                return;
+            case PictureContent.PassiveUtility:
+                return;
+            case PictureContent.ActiveUtility:
+                return;
+        }
     }
 }
 
@@ -79,4 +139,16 @@ public enum RevealedState
     NoRevealed = 0,
     OneRevealed = 1,
     TwoRevealed = 2
+}
+
+public enum GameState
+{
+    NoAction = 0,
+    AnimationInProgress = 1
+}
+
+public enum TurnState
+{
+    PlayerTurn = 0,
+    AITurn = 1
 }

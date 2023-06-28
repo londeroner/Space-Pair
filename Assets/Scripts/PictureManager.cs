@@ -37,7 +37,7 @@ public class PictureManager : MonoBehaviour
         const string matBaseName = "Pic";
         var firstMaterialName = "Back";
 
-        for (var i = 1; i <= 20; i++)
+        for (var i = 1; i <= 2; i++)
         {
             var currentFilePath = materialFilePath + matBaseName + i;
             Material mat = Resources.Load(currentFilePath, typeof(Material)) as Material;

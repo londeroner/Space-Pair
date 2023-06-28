@@ -11,8 +11,6 @@ public class GameSettings : MonoBehaviour
 
     public static GameSettings instance;
 
-
-
     private void Awake()
     {
         if (instance == null)
@@ -40,6 +38,6 @@ public class GameSettings : MonoBehaviour
 
     public string GetTextureDirectoryName()
     {
-        return $"Graphics/PuzzleCat/Fruits/";
+        return $"CardsSprites/";
     }
 }
