@@ -64,6 +64,7 @@ public class PictureManager : MonoBehaviour
                     tempPicture.PictureManager = this;
                     tempPicture.name = $"{tempPicture.name}c{col}r{row}";
                     PictureList.Add(tempPicture);
+                    tempPicture.OnRemove += () => PictureList.Remove(tempPicture);
                 }
             }
         }

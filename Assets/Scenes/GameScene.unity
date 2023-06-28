@@ -522,6 +522,7 @@ MonoBehaviour:
   PuzzleRevealedState: 0
   GameState: 0
   TurnState: 0
+  IsGameFinished: 0
   FirstRevealedPic: -1
   SecondRevealedPic: -1
   RevealedPicNumber: 0
@@ -538,6 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MakeTurn: 0
+  UseMemoryChance: 100
 --- !u!1 &1298660008
 GameObject:
   m_ObjectHideFlags: 0

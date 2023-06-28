@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,12 +26,12 @@ public class GameManager : MonoBehaviour
     public int SecondRevealedPic = -1;
     public int RevealedPicNumber = 0;
 
+    public event Action TurnEnd;
+
     private Picture _firstReveal;
     private Picture _secondReveal;
 
     private int MoveAnimationCount = 0;
-
-    private AI _ai;
 
     void Awake()
     {
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        _ai = GetComponent<AI>();
     }
 
     void Update()
@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
         {
             _secondReveal = picture;
 
-            Debug.Log("Animation started from reveal");
             GameState = GameState.AnimationInProgress;
             if (_firstReveal.ComparativeHash == _secondReveal.ComparativeHash)
             {
@@ -80,7 +79,8 @@ public class GameManager : MonoBehaviour
             else
             {
                 TurnState = TurnState.PlayerTurn;
-                _ai.MakeTurn = false;
+                AI.instance.MakeTurn = false;
+                TurnEnd.Invoke();
             }
         }
     }

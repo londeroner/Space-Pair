@@ -46,7 +46,6 @@ public class Ship : MonoBehaviour
 
         target.TakeDamage(damage);
 
-        Debug.Log("Animation stopped from attack");
         GameManager.instance.GameState = GameState.NoAction;
     }
 

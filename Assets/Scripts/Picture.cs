@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,14 @@ public class Picture : MonoBehaviour
 
     public string ComparativeHash;
 
+    public PictureContent PictureContent;
+
+    public event Action OnRemove;
+
     private Material _firstMaterial;
     private Material _secondMaterial;
 
     private Quaternion _currentRotation;
-
-    public PictureContent PictureContent;
 
     void Start()
     {
@@ -34,6 +37,7 @@ public class Picture : MonoBehaviour
     public void Flip()
     {
         Revealed = true;
+        AI.instance.AddToMemory(this);
         GameManager.instance.RevealPicture(this);
         StartCoroutine(LoopRotation(45, false));
     }
@@ -69,7 +73,6 @@ public class Picture : MonoBehaviour
                 yield return null;
             }
 
-            Debug.Log("Animation stopped from loop");
             GameManager.instance.GameState = GameState.NoAction;
         }
         else
@@ -127,7 +130,7 @@ public class Picture : MonoBehaviour
 
     public void Disable()
     {
-        PictureManager.PictureList.Remove(this);
+        OnRemove.Invoke();
         Destroy(gameObject);
     }
 }
