@@ -35,7 +35,6 @@ public class AI : MonoBehaviour
             {
                 _memory[key]--;
 
-                Debug.Log($"key: {key}; counter: {_memory[key]}");
                 if (_memory[key] <= 0)
                 {
                     _memory.Remove(key);

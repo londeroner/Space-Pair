@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,29 +11,31 @@ public class Ship : MonoBehaviour
 
     public List<Module> Modules = new List<Module>();
 
-    public Image HPBar;
-    public TMP_Text ESText;
+    public bool Destroyed = false;
 
     void Start()
     {
-        ESText.text = Stats.ES.ToString();
     }
 
     void Update()
     {
     }
 
-    public IEnumerator Attack(Ship target)
+    public IEnumerator Attack(Ship target, int? defaultDamage = null)
     {
         float damage = 0f;
 
-        foreach (var module in Modules)
+        if (defaultDamage is null)
         {
-            if (module.ModuleType == ModuleType.AttackModule)
+            foreach (var module in Modules)
             {
-                damage += (module as AttackModule).Damage;
+                if (module.ModuleType == ModuleType.AttackModule)
+                {
+                    damage += (module as AttackModule).Damage;
+                }
             }
         }
+        else damage = defaultDamage.Value;
 
         var bullet = Instantiate(GameManager.instance.BulletPrefab, transform);
 
@@ -46,12 +49,37 @@ public class Ship : MonoBehaviour
 
         target.TakeDamage(damage);
 
-        GameManager.instance.GameState = GameState.NoAction;
+        if (!target.Destroyed && target.Stats.CanReflect)
+        {
+            target.Reflect(damage, this);
+        }
+        else GameManager.instance.GameState = GameState.NoAction;
     }
 
-    public void AddES(float amount)
+    public void Defense()
     {
-        Stats.ES += amount;
+        float es = 0f, avgRatio = -1f;
+        foreach (var module in Modules)
+        {
+            if (module.ModuleType == ModuleType.DefenceModule)
+            {
+                var def = (module as DefenseModule);
+                AddArmour(def.DefenceEffect.BonusArmour);
+                es += def.DefenceEffect.MaxES;
+
+                if (def.CanReflect)
+                {
+                    Stats.CanReflect = true;
+                    if (avgRatio == -1)
+                        avgRatio = def.ReflectDamageRatio;
+                    else avgRatio = (avgRatio + def.ReflectDamageRatio) / 2;
+                }
+            }
+        }
+        Stats.ReflectRatio = avgRatio;
+        SetES(es);
+
+        GameManager.instance.GameState = GameState.NoAction;
     }
 
     public void TakeDamage(float amount)
@@ -59,15 +87,18 @@ public class Ship : MonoBehaviour
         if (amount > Stats.ES)
         {
             amount -= Stats.ES;
-            Stats.ES = 0;
+            SetES(0);
             Stats.CurrentHP = Mathf.Max(0f, Stats.CurrentHP - amount);
         }
-        else Stats.ES -= amount;
-
-        HPBar.fillAmount = Stats.CurrentHP / Stats.MaxHP;
-        ESText.text = Stats.ES.ToString();
+        else SetES(Stats.ES - amount);
 
         CheckDestroyed();
+    }
+
+    public void Reflect(float inputDamage, Ship target)
+    {
+        Stats.CanReflect = false;
+        StartCoroutine(Attack(target, (int?)(inputDamage * Stats.ReflectRatio)));
     }
 
     public void CheckDestroyed()
@@ -76,8 +107,19 @@ public class Ship : MonoBehaviour
         if (Stats.CurrentHP <= 0)
         {
             GameManager.instance.IsGameFinished = true;
+            Destroyed = true;
             Destroy(gameObject);
         }
+    }
+
+    private void SetES(float amount)
+    {
+        Stats.ES = amount;
+    }
+    
+    private void AddArmour(float amount)
+    {
+        Stats.Armour += amount;
     }
 }
 
@@ -88,4 +130,7 @@ public struct ShipStats
     public float CurrentHP;
     public float ES;
     public float Armour;
+
+    public bool CanReflect;
+    public float ReflectRatio;
 }

@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1237805409816392148, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1237805409816392148, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_LocalRotation.x
@@ -156,7 +156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1237805409816392148, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1237805409816392148, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_LocalRotation.z
@@ -168,10 +168,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1237805409816392148, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1237805409816392148, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790020533573311585, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2103596952250326758, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
@@ -192,12 +196,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: Modules.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: Modules.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: a82034ed5656b72409fae7ee053c928d, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: Modules.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ea01c3e4c77bc8348b92f3c1a47ebd54, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: Modules.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: ad0f3343b7915af4b97af6acfb26c6cd, type: 2}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: attackModules.Array.size
       value: 1
@@ -206,6 +218,10 @@ PrefabInstance:
       propertyPath: attackModules.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: a82034ed5656b72409fae7ee053c928d, type: 2}
+    - target: {fileID: 5405521979077484043, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
 --- !u!1 &449974719
@@ -676,12 +692,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: Modules.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: Modules.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 17b61714fe5a0ca448ed2359a5c773e4, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: Modules.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ea01c3e4c77bc8348b92f3c1a47ebd54, type: 2}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: attackModules.Array.size
       value: 1
@@ -690,6 +710,10 @@ PrefabInstance:
       propertyPath: attackModules.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 17b61714fe5a0ca448ed2359a5c773e4, type: 2}
+    - target: {fileID: 5405521979077484043, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
 --- !u!1 &1493724154

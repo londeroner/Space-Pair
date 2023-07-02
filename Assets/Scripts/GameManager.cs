@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(source.Attack(target));
                 return;
             case PictureContent.Defence:
-                GameState = GameState.NoAction;
+                source.Defense();
                 return;
             case PictureContent.Resource:
                 return;
