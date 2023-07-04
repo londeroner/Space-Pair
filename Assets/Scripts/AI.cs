@@ -7,16 +7,18 @@ public class AI : MonoBehaviour
 {
     public static AI instance;
 
-    public bool MakeTurn = false;
-
     [Range(0, 100)]
     [Tooltip("Chance to use memory for open pair")]
     public int UseMemoryChance = 50;
 
+    [Tooltip("Count of turns before AI forgot opened card")]
+    public int MemorySize = 3;
+
     public Dictionary<Picture, int> _memory = new Dictionary<Picture, int>();
 
-    private int _flippedIndex;
     private PictureManager _pictureManager;
+
+    private bool MakeTurn = false;
 
     void Awake()
     {
@@ -30,7 +32,6 @@ public class AI : MonoBehaviour
 
         GameManager.instance.TurnEnd += () =>
         {
-            Debug.ClearDeveloperConsole();
             foreach (var key in _memory.Keys.ToList())
             {
                 _memory[key]--;
@@ -40,6 +41,7 @@ public class AI : MonoBehaviour
                     _memory.Remove(key);
                 }
             }
+            MakeTurn = false;
         };
     }
 
@@ -56,7 +58,7 @@ public class AI : MonoBehaviour
     {
         if (!_memory.ContainsKey(pic))
         {
-            _memory.Add(pic, 3);
+            _memory.Add(pic, MemorySize);
             pic.OnRemove += () => _memory.Remove(pic);
         }
     }
@@ -65,7 +67,7 @@ public class AI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
 
-        _flippedIndex = Random.Range(0, _pictureManager.PictureList.Count);
+        var _flippedIndex = Random.Range(0, _pictureManager.PictureList.Count);
         _pictureManager.PictureList[_flippedIndex].Flip();
 
         yield return new WaitForSeconds(1.5f);

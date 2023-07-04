@@ -15,6 +15,7 @@ public class Ship : MonoBehaviour
 
     void Start()
     {
+        Stats.CurrentHP = Stats.MaxHP;
     }
 
     void Update()
@@ -127,10 +128,10 @@ public class Ship : MonoBehaviour
 public struct ShipStats
 {
     public float MaxHP;
-    public float CurrentHP;
+    [HideInInspector] public float CurrentHP;
     public float ES;
     public float Armour;
 
-    public bool CanReflect;
-    public float ReflectRatio;
+    [HideInInspector] public bool CanReflect;
+    [HideInInspector] public float ReflectRatio;
 }

@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 TurnState = TurnState.PlayerTurn;
-                AI.instance.MakeTurn = false;
                 TurnEnd.Invoke();
             }
         }
