@@ -13,6 +13,7 @@ public class ShipEffects : MonoBehaviour
 
     public Image HPBar;
     public TMP_Text ESText;
+    public TMP_Text ArmourText;
 
     private Ship _ship;
 
@@ -41,6 +42,7 @@ public class ShipEffects : MonoBehaviour
             _updateCounter = 0;
 
             ESText.text = _ship.Stats.ES.ToString();
+            ArmourText.text = _ship.Stats.Armour.ToString();
             HPBar.fillAmount = _ship.Stats.CurrentHP / _ship.Stats.MaxHP;
 
             if (oldESState != (_ship.Stats.ES > 0))

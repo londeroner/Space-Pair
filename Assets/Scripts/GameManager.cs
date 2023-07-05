@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         switch (pictureContent)
         {
             case PictureContent.Attack:
-                StartCoroutine(source.Attack(target));
+                StartCoroutine(source.Attack(target, source.CalculateDamage()));
                 return;
             case PictureContent.Defence:
                 source.Defense();

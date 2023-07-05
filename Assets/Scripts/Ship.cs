@@ -11,7 +11,7 @@ public class Ship : MonoBehaviour
 
     public List<Module> Modules = new List<Module>();
 
-    public bool Destroyed = false;
+    [HideInInspector] public bool Destroyed = false;
 
     void Start()
     {
@@ -22,22 +22,32 @@ public class Ship : MonoBehaviour
     {
     }
 
-    public IEnumerator Attack(Ship target, int? defaultDamage = null)
+    public Damage CalculateDamage()
     {
-        float damage = 0f;
+        float energy = 0f, kinetic = 0f;
 
-        if (defaultDamage is null)
+        foreach (var module in Modules)
         {
-            foreach (var module in Modules)
+            if (module.ModuleType == ModuleType.AttackModule)
             {
-                if (module.ModuleType == ModuleType.AttackModule)
+                switch ((module as AttackModule).DamageType)
                 {
-                    damage += (module as AttackModule).Damage;
+                    case DamageType.Kinetic:
+                        kinetic += (module as AttackModule).Damage;
+                        break;
+                    case DamageType.Energy:
+                        energy += (module as AttackModule).Damage;
+                        break;
                 }
             }
         }
-        else damage = defaultDamage.Value;
 
+        return new Damage(kinetic, energy);
+
+    }
+
+    public IEnumerator Attack(Ship target, Damage damage)
+    {
         var bullet = Instantiate(GameManager.instance.BulletPrefab, transform);
 
         while (bullet.transform.position != target.transform.position)
@@ -65,7 +75,7 @@ public class Ship : MonoBehaviour
             if (module.ModuleType == ModuleType.DefenceModule)
             {
                 var def = (module as DefenseModule);
-                AddArmour(def.DefenceEffect.BonusArmour);
+                Stats.Armour += def.DefenceEffect.BonusArmour;
                 es += def.DefenceEffect.MaxES;
 
                 if (def.CanReflect)
@@ -78,28 +88,36 @@ public class Ship : MonoBehaviour
             }
         }
         Stats.ReflectRatio = avgRatio;
-        SetES(es);
+        Stats.ES = es;
 
         GameManager.instance.GameState = GameState.NoAction;
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(Damage amount)
     {
-        if (amount > Stats.ES)
+        if (amount.Energy > Stats.ES)
         {
-            amount -= Stats.ES;
-            SetES(0);
-            Stats.CurrentHP = Mathf.Max(0f, Stats.CurrentHP - amount);
+            amount.Energy = amount.Energy - Stats.ES;
+            Stats.ES = 0;
+            Stats.CurrentHP = Mathf.Max(0f, Stats.CurrentHP - amount.Energy);
         }
-        else SetES(Stats.ES - amount);
+        else Stats.ES = Stats.ES - amount.Energy;
+
+        if (amount.Kinetic > Stats.Armour)
+        {
+            amount.Kinetic = amount.Kinetic - Stats.Armour;
+            Stats.Armour = 0;
+            Stats.CurrentHP = Mathf.Max(0f, Stats.CurrentHP - amount.Kinetic);
+        }
+        else Stats.Armour = Stats.Armour - amount.Kinetic;
 
         CheckDestroyed();
     }
 
-    public void Reflect(float inputDamage, Ship target)
+    public void Reflect(Damage damage, Ship target)
     {
         Stats.CanReflect = false;
-        StartCoroutine(Attack(target, (int?)(inputDamage * Stats.ReflectRatio)));
+        StartCoroutine(Attack(target, new Damage(damage.Kinetic * Stats.ReflectRatio, damage.Energy * Stats.ReflectRatio)));
     }
 
     public void CheckDestroyed()
@@ -111,16 +129,6 @@ public class Ship : MonoBehaviour
             Destroyed = true;
             Destroy(gameObject);
         }
-    }
-
-    private void SetES(float amount)
-    {
-        Stats.ES = amount;
-    }
-    
-    private void AddArmour(float amount)
-    {
-        Stats.Armour += amount;
     }
 }
 
@@ -134,4 +142,17 @@ public struct ShipStats
 
     [HideInInspector] public bool CanReflect;
     [HideInInspector] public float ReflectRatio;
+}
+
+[System.Serializable]
+public struct Damage
+{
+    public float Kinetic;
+    public float Energy;
+
+    public Damage(float k, float e)
+    {
+        Kinetic = k;
+        Energy = e;
+    }
 }
