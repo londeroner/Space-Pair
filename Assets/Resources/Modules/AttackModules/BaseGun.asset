@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseGun
   m_EditorClassIdentifier: 
   Name: BaseGun
+  EnergyConsumption: 40
   ModuleType: 1
   DamageType: 0
   Damage: 4

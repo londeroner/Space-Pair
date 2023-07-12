@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Base Shield
   m_EditorClassIdentifier: 
   Name: Base Shield
+  EnergyConsumption: 10
   ModuleType: 2
   DefenceEffect:
-    MaxES: 1
+    MaxES: 2
     BonusArmour: 0
   CanReflect: 0
   ReflectDamageRatio: 0

@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab8cfabf80dddc4fb8dcc5c8a7887df, type: 3}
-  m_Name: Reflect Shield
+  m_Script: {fileID: 11500000, guid: 7280e6b19615cea4a85f3482660b1b1b, type: 3}
+  m_Name: BaseEnergyModule
   m_EditorClassIdentifier: 
-  Name: 
-  EnergyConsumption: 20
-  ModuleType: 2
-  DefenceEffect:
-    MaxES: 1
-    BonusArmour: 0
-  CanReflect: 1
-  ReflectDamageRatio: 1
+  Name: BaseEnergyModule
+  ModuleType: 4
+  MaxEnergy: 100
+  EnergyRefill: 20

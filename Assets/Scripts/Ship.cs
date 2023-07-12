@@ -9,45 +9,76 @@ public class Ship : MonoBehaviour
 {
     public ShipStats Stats;
 
-    public List<Module> Modules = new List<Module>();
+    public List<AttackModule> AttackModules = new List<AttackModule>();
+    public List<DefenseModule> DefenseModules = new List<DefenseModule>();
+    public List<EnergyModule> EnergyModules = new List<EnergyModule>();
 
     [HideInInspector] public bool Destroyed = false;
 
+    private void Awake()
+    {
+        GameManager.instance.BattleStarted += () => CalculateMaxEnergy();
+
+        // TEMP Before RPG system implement
+        Stats.CurrentHP = Stats.MaxHP;
+    }
+
     void Start()
     {
-        Stats.CurrentHP = Stats.MaxHP;
     }
 
     void Update()
     {
     }
 
-    public Damage CalculateDamage()
+    public Damage CalculateDamage(bool shooting = true)
     {
         float energy = 0f, kinetic = 0f;
 
-        foreach (var module in Modules)
+        foreach (var module in AttackModules)
         {
-            if (module.ModuleType == ModuleType.AttackModule)
+            if (!shooting || module.EnergyConsumption <= Stats.CurrentEnergy)
             {
-                switch ((module as AttackModule).DamageType)
+                Stats.CurrentEnergy -= shooting ? module.EnergyConsumption : 0f;
+                switch (module.DamageType)
                 {
                     case DamageType.Kinetic:
-                        kinetic += (module as AttackModule).Damage;
+                        kinetic += module.Damage;
                         break;
                     case DamageType.Energy:
-                        energy += (module as AttackModule).Damage;
+                        energy += module.Damage;
                         break;
                 }
             }
+            else StartCoroutine(GetComponent<ShipEffects>().ShowNoEnergy());
         }
 
         return new Damage(kinetic, energy);
+    }
 
+    public void CalculateMaxEnergy(bool refillToFull = true)
+    {
+        float maxEnergy = 0f;
+
+        foreach (var module in EnergyModules)
+        {
+            maxEnergy += module.MaxEnergy;
+        }
+
+        Stats.MaxEnergy = maxEnergy;
+
+        if (refillToFull)
+            Stats.CurrentEnergy = maxEnergy;
     }
 
     public IEnumerator Attack(Ship target, Damage damage)
     {
+        if (damage.Kinetic <= 0 && damage.Energy <= 0)
+        {
+            GameManager.instance.GameState = GameState.NoAction;
+            yield break;
+        }
+
         var bullet = Instantiate(GameManager.instance.BulletPrefab, transform);
 
         while (bullet.transform.position != target.transform.position)
@@ -70,22 +101,24 @@ public class Ship : MonoBehaviour
     public void Defense()
     {
         float es = 0f, avgRatio = -1f;
-        foreach (var module in Modules)
+        foreach (var module in DefenseModules)
         {
-            if (module.ModuleType == ModuleType.DefenceModule)
+            if (module.EnergyConsumption <= Stats.CurrentEnergy)
             {
-                var def = (module as DefenseModule);
-                Stats.Armour += def.DefenceEffect.BonusArmour;
-                es += def.DefenceEffect.MaxES;
+                Stats.CurrentEnergy -= module.EnergyConsumption;
 
-                if (def.CanReflect)
+                Stats.Armour += module.DefenceEffect.BonusArmour;
+                es += module.DefenceEffect.MaxES;
+
+                if (module.CanReflect)
                 {
                     Stats.CanReflect = true;
                     if (avgRatio == -1)
-                        avgRatio = def.ReflectDamageRatio;
-                    else avgRatio = (avgRatio + def.ReflectDamageRatio) / 2;
+                        avgRatio = module.ReflectDamageRatio;
+                    else avgRatio = (avgRatio + module.ReflectDamageRatio) / 2;
                 }
             }
+            else StartCoroutine(GetComponent<ShipEffects>().ShowNoEnergy());
         }
         Stats.ReflectRatio = avgRatio;
         Stats.ES = es;
@@ -139,6 +172,9 @@ public struct ShipStats
     [HideInInspector] public float CurrentHP;
     public float ES;
     public float Armour;
+
+    [HideInInspector] public float MaxEnergy;
+    [HideInInspector] public float CurrentEnergy;
 
     [HideInInspector] public bool CanReflect;
     [HideInInspector] public float ReflectRatio;

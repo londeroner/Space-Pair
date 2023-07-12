@@ -211,13 +211,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ad0f3343b7915af4b97af6acfb26c6cd, type: 2}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: AttackModules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: EnergyModules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: attackModules.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: DefenseModules.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: AttackModules.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a82034ed5656b72409fae7ee053c928d, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: EnergyModules.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bdf1d162ed9ddf4fa0fd940c078b44b, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: attackModules.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: a82034ed5656b72409fae7ee053c928d, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: DefenseModules.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ad0f3343b7915af4b97af6acfb26c6cd, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: DefenseModules.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ea01c3e4c77bc8348b92f3c1a47ebd54, type: 2}
     - target: {fileID: 5405521979077484043, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -554,8 +582,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e95b26cf0a87be42b9260eb296cd12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MakeTurn: 0
   UseMemoryChance: 100
+  MemorySize: 3
 --- !u!1 &1298660008
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,13 +731,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ea01c3e4c77bc8348b92f3c1a47ebd54, type: 2}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: AttackModules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: EnergyModules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: attackModules.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: DefenseModules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: AttackModules.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 17b61714fe5a0ca448ed2359a5c773e4, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: EnergyModules.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bdf1d162ed9ddf4fa0fd940c078b44b, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: attackModules.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 17b61714fe5a0ca448ed2359a5c773e4, type: 2}
+    - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
+      propertyPath: DefenseModules.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ea01c3e4c77bc8348b92f3c1a47ebd54, type: 2}
     - target: {fileID: 5405521979077484043, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_IsActive
       value: 0

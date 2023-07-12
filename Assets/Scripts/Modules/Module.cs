@@ -5,6 +5,7 @@ using UnityEngine;
 public class Module : ScriptableObject
 {
     public string Name;
+    public float EnergyConsumption;
 
     [HideInInspector]
     public ModuleType ModuleType;
@@ -16,5 +17,6 @@ public enum ModuleType
     NoType = 0,
     AttackModule = 1,
     DefenceModule = 2,
-    UtilityModule = 3
+    UtilityModule = 3,
+    EnergyModule = 4
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseAIGun
   m_EditorClassIdentifier: 
   Name: BaseAIGun
+  EnergyConsumption: 20
   ModuleType: 1
   DamageType: 0
   Damage: 2

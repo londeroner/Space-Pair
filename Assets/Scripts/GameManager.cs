@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int RevealedPicNumber = 0;
 
     public event Action TurnEnd;
+    public event Action BattleStarted;
 
     private Picture _firstReveal;
     private Picture _secondReveal;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        BattleStarted.Invoke();
     }
 
     void Update()
