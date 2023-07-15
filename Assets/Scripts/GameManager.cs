@@ -138,6 +138,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        if (PictureManager.instance.PictureList.Count == 0)
+        {
+            PictureManager.instance.GenerateField();
+        }
+
         GameState = GameState.NoAction;
     }
 }

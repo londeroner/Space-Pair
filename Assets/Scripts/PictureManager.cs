@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PictureManager : MonoBehaviour
 {
+    public static PictureManager instance;
+
     public Picture PicturePrefab;
     public Transform PicSpawnPosition;
     public Vector2 Offset = new Vector2(0.25f, 0.25f);
@@ -15,10 +17,20 @@ public class PictureManager : MonoBehaviour
 
     private int _columns;
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         _columns = (int)Mathf.Ceil(Mathf.Sqrt(GameSettings.instance.ObjectsNumber));
 
+        GenerateField();
+    }
+
+    public void GenerateField()
+    {
         SpawnPictureMesh(PicSpawnPosition.position, Offset, false);
         MovePosition(PicSpawnPosition.position, Offset);
     }
