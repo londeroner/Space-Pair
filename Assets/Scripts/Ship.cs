@@ -71,6 +71,17 @@ public class Ship : MonoBehaviour
             Stats.CurrentEnergy = maxEnergy;
     }
 
+    public void RefillEnergy()
+    {
+        foreach (var module in EnergyModules)
+        {
+            Stats.CurrentEnergy += module.EnergyRefill;
+        }
+
+        CalculateMaxEnergy(false);
+        Stats.CurrentEnergy = Mathf.Min(Stats.CurrentEnergy, Stats.MaxEnergy);
+    }
+
     public IEnumerator Attack(Ship target, Damage damage)
     {
         if (damage.Kinetic <= 0 && damage.Energy <= 0)
@@ -122,8 +133,6 @@ public class Ship : MonoBehaviour
         }
         Stats.ReflectRatio = avgRatio;
         Stats.ES = es;
-
-        GameManager.instance.GameState = GameState.NoAction;
     }
 
     public void TakeDamage(Damage amount)

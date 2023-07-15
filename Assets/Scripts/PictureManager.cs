@@ -15,40 +15,12 @@ public class PictureManager : MonoBehaviour
 
     private int _columns;
 
-    private List<Material> _materialList = new List<Material>();
-    private List<string> _texturePaths = new List<string>();
-    private Material _defaultMaterial;
-    private string _defaultTexturePath;
-
     void Start()
     {
-        LoadMaterials();
-
         _columns = (int)Mathf.Ceil(Mathf.Sqrt(GameSettings.instance.ObjectsNumber));
 
         SpawnPictureMesh(PicSpawnPosition.position, Offset, false);
         MovePosition(PicSpawnPosition.position, Offset);
-    }
-
-    private void LoadMaterials()
-    {
-        var materialFilePath = GameSettings.instance.GetMaterialDirectoryName();
-        var textureFilePath = GameSettings.instance.GetTextureDirectoryName();
-        const string matBaseName = "Pic";
-        var firstMaterialName = "Back";
-
-        for (var i = 1; i <= 2; i++)
-        {
-            var currentFilePath = materialFilePath + matBaseName + i;
-            Material mat = Resources.Load(currentFilePath, typeof(Material)) as Material;
-            _materialList.Add(mat);
-
-            var currentTextureFilePath = textureFilePath + matBaseName + i;
-            _texturePaths.Add(currentTextureFilePath);
-        }
-
-        _defaultTexturePath = textureFilePath + firstMaterialName;
-        _defaultMaterial = Resources.Load(materialFilePath + firstMaterialName, typeof(Material)) as Material;
     }
 
     private void SpawnPictureMesh(Vector2 Pos, Vector2 offset, bool scaleDown)
@@ -69,31 +41,33 @@ public class PictureManager : MonoBehaviour
             }
         }
 
-        ApplyTextures();
+        SetupPictures();
     }
 
-    private void ApplyTextures()
+    private void SetupPictures()
     {
         for (int i = 0; i < PictureList.Count; i++)
         {
             if (!PictureList[i].MaterialSet)
             {
-                var rndMatIndex = Random.Range(0, _materialList.Count);
+                var pictureObjects = GameSettings.instance.PictureObjects;
+
+                var rndMatIndex = Random.Range(0, pictureObjects.Count);
                 var rndObjectIndex = Random.Range(i + 1, PictureList.Count);
 
                 while (PictureList[rndObjectIndex].MaterialSet) rndObjectIndex = Random.Range(i + 1, PictureList.Count);
 
-                SetMaterials(PictureList[i], rndMatIndex);
-                SetMaterials(PictureList[rndObjectIndex], rndMatIndex);
+                SetMaterials(PictureList[i], pictureObjects[rndMatIndex].PictureMaterial, pictureObjects[rndMatIndex].PictureContent);
+                SetMaterials(PictureList[rndObjectIndex], pictureObjects[rndMatIndex].PictureMaterial, pictureObjects[rndMatIndex].PictureContent);
             }
         }
     }
 
-    private void SetMaterials(Picture pic, int matIndex)
+    private void SetMaterials(Picture pic, Material material, PictureContent content)
     {
-        pic.SetFirstMaterial(_defaultMaterial, _defaultTexturePath);
+        pic.SetFirstMaterial(GameSettings.instance.BackMaterial);
         pic.ApplyFirstMaterial();
-        pic.SetSecondMaterial(_materialList[matIndex], _texturePaths[matIndex]);
+        pic.SetSecondMaterial(material, content);
     }
 
     private void MovePosition(Vector2 pos, Vector2 offset)

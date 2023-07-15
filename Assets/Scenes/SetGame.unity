@@ -431,6 +431,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectsNumber: 10
   GameSceneName: GameScene
+  PictureObjects:
+  - {fileID: 11400000, guid: 94f7da8e3fd3c4b4fa56be4b7554d62a, type: 2}
+  - {fileID: 11400000, guid: 91c83e003b356814f866ea1a63f9e3b3, type: 2}
+  - {fileID: 11400000, guid: 94502eb26e7bb4e4895e2da7f10dbbfe, type: 2}
+  BackMaterial: {fileID: 2100000, guid: 878d049c2bfc4fc4289e5f270623a2d9, type: 2}
 --- !u!4 &385260177
 Transform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,9 @@ public class GameSettings : MonoBehaviour
 
     public string GameSceneName = "";
 
+    public List<PictureObject> PictureObjects;
+    public Material BackMaterial;
+
     public static GameSettings instance;
 
     private void Awake()
@@ -40,4 +43,6 @@ public class GameSettings : MonoBehaviour
     {
         return $"CardsSprites/";
     }
+
+
 }

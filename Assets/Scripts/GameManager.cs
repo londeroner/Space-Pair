@@ -122,16 +122,23 @@ public class GameManager : MonoBehaviour
             case PictureContent.Attack:
                 StartCoroutine(source.Attack(target, source.CalculateDamage()));
                 return;
-            case PictureContent.Defence:
+            case PictureContent.Defense:
                 source.Defense();
-                return;
+                break;
             case PictureContent.Resource:
-                return;
+                break;
             case PictureContent.PassiveUtility:
-                return;
+                break;
             case PictureContent.ActiveUtility:
-                return;
+                break;
+            case PictureContent.NoContent:
+                break;
+            case PictureContent.Energy:
+                source.RefillEnergy();
+                break;
         }
+
+        GameState = GameState.NoAction;
     }
 }
 

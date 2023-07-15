@@ -91,26 +91,16 @@ public class Picture : MonoBehaviour
         gameObject.GetComponent<Transform>().rotation = _currentRotation;
     }
 
-    public void SetFirstMaterial(Material mat, string texturePath)
+    public void SetFirstMaterial(Material mat)
     {
         _firstMaterial = mat;
-        _firstMaterial.mainTexture = Resources.Load(texturePath, typeof(Texture2D)) as Texture2D;
     }
 
-    public void SetSecondMaterial(Material mat, string texturePath)
+    public void SetSecondMaterial(Material mat, PictureContent content)
     {
         _secondMaterial = mat;
-        _secondMaterial.mainTexture = Resources.Load(texturePath, typeof(Texture2D)) as Texture2D;
 
-        switch (mat.name)
-        {
-            case "Pic1":
-                PictureContent = PictureContent.Attack;
-                break;
-            case "Pic2":
-                PictureContent = PictureContent.Defence;
-                break;
-        }
+        PictureContent = content;
 
         ///////////////////////////TEST
         ComparativeHash = _secondMaterial.ToString();
@@ -133,14 +123,4 @@ public class Picture : MonoBehaviour
         OnRemove.Invoke();
         Destroy(gameObject);
     }
-}
-
-public enum PictureContent
-{
-    NoContent = 0,
-    Attack = 1,
-    Defence = 2,
-    Resource = 3,
-    PassiveUtility = 4,
-    ActiveUtility = 5
 }
