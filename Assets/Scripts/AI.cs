@@ -30,18 +30,21 @@ public class AI : MonoBehaviour
     {
         _pictureManager = GetComponent<PictureManager>();
 
-        GameManager.instance.TurnEnd += () =>
+        GameManager.instance.TurnEnd += (e) =>
         {
-            foreach (var key in _memory.Keys.ToList())
+            if (e == TurnState.AITurn)
             {
-                _memory[key]--;
-
-                if (_memory[key] <= 0)
+                foreach (var key in _memory.Keys.ToList())
                 {
-                    _memory.Remove(key);
+                    _memory[key]--;
+
+                    if (_memory[key] <= 0)
+                    {
+                        _memory.Remove(key);
+                    }
                 }
+                MakeTurn = false;
             }
-            MakeTurn = false;
         };
     }
 

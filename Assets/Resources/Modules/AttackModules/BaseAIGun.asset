@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: BaseAIGun
   EnergyConsumption: 20
   ModuleType: 1
-  DamageType: 0
+  DamageType: 1
   Damage: 2

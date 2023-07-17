@@ -82,31 +82,17 @@ public class Ship : MonoBehaviour
         Stats.CurrentEnergy = Mathf.Min(Stats.CurrentEnergy, Stats.MaxEnergy);
     }
 
-    public IEnumerator Attack(Ship target, Damage damage)
+    public void Attack(Ship target, Damage damage)
     {
         if (damage.Kinetic <= 0 && damage.Energy <= 0)
         {
             GameManager.instance.GameState = GameState.NoAction;
-            yield break;
+            return;
         }
 
         var bullet = Instantiate(GameManager.instance.BulletPrefab, transform);
 
-        while (bullet.transform.position != target.transform.position)
-        {
-            bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, target.transform.position, 7f * Time.deltaTime);
-            yield return 0;
-        }
-
-        Destroy(bullet);
-
-        target.TakeDamage(damage);
-
-        if (!target.Destroyed && target.Stats.CanReflect)
-        {
-            target.Reflect(damage, this);
-        }
-        else GameManager.instance.GameState = GameState.NoAction;
+        bullet.GetComponent<Projectile>().SetupProjectile(gameObject, target.gameObject, damage);
     }
 
     public void Defense()
@@ -131,8 +117,10 @@ public class Ship : MonoBehaviour
             }
             else StartCoroutine(GetComponent<ShipEffects>().ShowNoEnergy());
         }
-        Stats.ReflectRatio = avgRatio;
-        Stats.ES = es;
+
+        if (avgRatio != -1)
+            Stats.ReflectRatio = avgRatio;
+        if (Stats.ES < es) Stats.ES = es;
     }
 
     public void TakeDamage(Damage amount)
@@ -159,7 +147,7 @@ public class Ship : MonoBehaviour
     public void Reflect(Damage damage, Ship target)
     {
         Stats.CanReflect = false;
-        StartCoroutine(Attack(target, new Damage(damage.Kinetic * Stats.ReflectRatio, damage.Energy * Stats.ReflectRatio)));
+        Attack(target, new Damage(damage.Kinetic * Stats.ReflectRatio, damage.Energy * Stats.ReflectRatio));
     }
 
     public void CheckDestroyed()

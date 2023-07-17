@@ -21,6 +21,8 @@ public class Picture : MonoBehaviour
 
     private Quaternion _currentRotation;
 
+    private static int _flippedCount;
+
     void Start()
     {
         _currentRotation = gameObject.transform.rotation;
@@ -73,7 +75,14 @@ public class Picture : MonoBehaviour
                 yield return null;
             }
 
-            GameManager.instance.GameState = GameState.NoAction;
+            _flippedCount++;
+
+            if (_flippedCount == 2)
+            {
+                GameManager.instance.GameState = GameState.NoAction;
+                GameManager.instance.EndTurn();
+                _flippedCount = 0;
+            }
         }
         else
         {

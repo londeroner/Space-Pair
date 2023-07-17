@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: BaseGun
   EnergyConsumption: 40
   ModuleType: 1
-  DamageType: 0
+  DamageType: 1
   Damage: 4

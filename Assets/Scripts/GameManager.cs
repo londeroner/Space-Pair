@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public int SecondRevealedPic = -1;
     public int RevealedPicNumber = 0;
 
-    public event Action TurnEnd;
+    public event Action<TurnState> TurnEnd;
     public event Action BattleStarted;
 
     private Picture _firstReveal;
@@ -75,14 +75,20 @@ public class GameManager : MonoBehaviour
             _firstReveal = null;
             _secondReveal = null;
             PuzzleRevealedState = RevealedState.NoRevealed;
+        }
+    }
 
-            if (TurnState == TurnState.PlayerTurn)
-                TurnState = TurnState.AITurn;
-            else
-            {
-                TurnState = TurnState.PlayerTurn;
-                TurnEnd.Invoke();
-            }
+    public void EndTurn()
+    {
+        if (TurnState == TurnState.PlayerTurn)
+        {
+            TurnEnd.Invoke(TurnState);
+            TurnState = TurnState.AITurn;
+        }
+        else
+        {
+            TurnEnd.Invoke(TurnState);
+            TurnState = TurnState.PlayerTurn;
         }
     }
 
@@ -111,16 +117,22 @@ public class GameManager : MonoBehaviour
         {
             MoveAnimationCount = 0;
 
+            EndTurn();
             PairAction(source, target, pic.PictureContent);
         }
     }
 
     private void PairAction(Ship source, Ship target, PictureContent pictureContent)
     {
+        if (PictureManager.instance.PictureList.Count == 0)
+        {
+            PictureManager.instance.GenerateField();
+        }
+
         switch (pictureContent)
         {
             case PictureContent.Attack:
-                StartCoroutine(source.Attack(target, source.CalculateDamage()));
+                source.Attack(target, source.CalculateDamage());
                 return;
             case PictureContent.Defense:
                 source.Defense();
@@ -136,11 +148,6 @@ public class GameManager : MonoBehaviour
             case PictureContent.Energy:
                 source.RefillEnergy();
                 break;
-        }
-
-        if (PictureManager.instance.PictureList.Count == 0)
-        {
-            PictureManager.instance.GenerateField();
         }
 
         GameState = GameState.NoAction;
