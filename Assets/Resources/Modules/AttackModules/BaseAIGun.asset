@@ -16,4 +16,4 @@ MonoBehaviour:
   EnergyConsumption: 20
   ModuleType: 1
   DamageType: 1
-  Damage: 2
+  Damage: 20

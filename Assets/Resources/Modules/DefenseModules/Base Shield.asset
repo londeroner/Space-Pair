@@ -16,7 +16,7 @@ MonoBehaviour:
   EnergyConsumption: 10
   ModuleType: 2
   DefenceEffect:
-    MaxES: 2
+    MaxES: 10
     BonusArmour: 0
   CanReflect: 0
   ReflectDamageRatio: 0

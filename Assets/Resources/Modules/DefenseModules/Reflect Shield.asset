@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Reflect Shield
   m_EditorClassIdentifier: 
   Name: 
-  EnergyConsumption: 20
+  EnergyConsumption: 10
   ModuleType: 2
   DefenceEffect:
-    MaxES: 1
+    MaxES: 2
     BonusArmour: 0
   CanReflect: 1
-  ReflectDamageRatio: 1
+  ReflectDamageRatio: 0.25

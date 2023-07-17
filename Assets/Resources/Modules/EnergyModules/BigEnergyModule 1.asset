@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b298a31456075e943a5b7b44914a8d47, type: 3}
-  m_Name: BaseGun
+  m_Script: {fileID: 11500000, guid: 7280e6b19615cea4a85f3482660b1b1b, type: 3}
+  m_Name: BigEnergyModule 1
   m_EditorClassIdentifier: 
-  Name: BaseGun
-  EnergyConsumption: 10
-  ModuleType: 1
-  DamageType: 0
-  Damage: 10
+  Name: BigEnergyModule
+  EnergyConsumption: 0
+  ModuleType: 4
+  MaxEnergy: 200
+  EnergyRefill: 20
