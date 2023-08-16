@@ -69,17 +69,16 @@ public class PictureManager : MonoBehaviour
 
                 while (PictureList[rndObjectIndex].MaterialSet) rndObjectIndex = Random.Range(i + 1, PictureList.Count);
 
-                SetMaterials(PictureList[i], pictureObjects[rndMatIndex].PictureMaterial, pictureObjects[rndMatIndex].PictureContent);
-                SetMaterials(PictureList[rndObjectIndex], pictureObjects[rndMatIndex].PictureMaterial, pictureObjects[rndMatIndex].PictureContent);
+                SetSprites(PictureList[i], pictureObjects[rndMatIndex].PictureSprite, pictureObjects[rndMatIndex].PictureContent);
+                SetSprites(PictureList[rndObjectIndex], pictureObjects[rndMatIndex].PictureSprite, pictureObjects[rndMatIndex].PictureContent);
             }
         }
     }
 
-    private void SetMaterials(Picture pic, Material material, PictureContent content)
+    private void SetSprites(Picture pic, Sprite sprite, PictureContent content)
     {
-        pic.SetFirstMaterial(GameSettings.instance.BackMaterial);
-        pic.ApplyFirstMaterial();
-        pic.SetSecondMaterial(material, content);
+        pic.SetFirstSprite(GameSettings.instance.BackSprite);
+        pic.SetSecondSprite(sprite, content);
     }
 
     private void MovePosition(Vector2 pos, Vector2 offset)

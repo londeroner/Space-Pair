@@ -36,6 +36,7 @@ public class ShipEffects : MonoBehaviour
         oldReflectState = _ship.Stats.CanReflect;
 
         ESText.transform.rotation = Camera.main.transform.rotation;
+        ArmourText.transform.rotation = Camera.main.transform.rotation;
         NoEnergyText.transform.rotation = Camera.main.transform.rotation;
         NoEnergyTextStart = NoEnergyText.transform.position;
     }

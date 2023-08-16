@@ -10,9 +10,14 @@ public class GameSettings : MonoBehaviour
     public string GameSceneName = "";
 
     public List<PictureObject> PictureObjects;
-    public Material BackMaterial;
+    public Sprite BackSprite;
+
+    public float ArmourFromTrash;
 
     public static GameSettings instance;
+
+    public GameObject PlayerShipPrefab;
+    public GameObject EnemyShipPrefab;
 
     private void Awake()
     {
@@ -43,6 +48,4 @@ public class GameSettings : MonoBehaviour
     {
         return $"CardsSprites/";
     }
-
-
 }

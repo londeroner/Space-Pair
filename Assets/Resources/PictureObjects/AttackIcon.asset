@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e5f21758f6e8a43b6afb1e10928127, type: 3}
   m_Name: AttackIcon
   m_EditorClassIdentifier: 
-  PictureMaterial: {fileID: 2100000, guid: cafc7ba732d001143aaa03df0c9cd813, type: 2}
+  PictureSprite: {fileID: 21300000, guid: 9d4798857b9809446ae5c2db6f638b10, type: 3}
   PictureContent: 1

@@ -104,9 +104,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MovePicToTarget(Picture pic, Ship source, Ship target)
     {
-        while (pic.transform.position != source.transform.position)
+        while (pic.transform.position != source.SpawnShipPoint.position)
         {
-            pic.transform.position = Vector3.MoveTowards(pic.transform.position, source.transform.position, 7f * Time.deltaTime);
+            pic.transform.position = Vector3.MoveTowards(pic.transform.position, source.SpawnShipPoint.position, 7f * Time.deltaTime);
             yield return 0;
         }
 
@@ -147,6 +147,9 @@ public class GameManager : MonoBehaviour
                 break;
             case PictureContent.Energy:
                 source.RefillEnergy();
+                break;
+            case PictureContent.Trash:
+                source.AddArmour(GameSettings.instance.ArmourFromTrash);
                 break;
         }
 

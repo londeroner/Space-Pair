@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eabeb3b1ee59b5f4cbf3c5bd83b40802, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1b58313106441c4c8b3d02657861811, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -435,7 +435,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94f7da8e3fd3c4b4fa56be4b7554d62a, type: 2}
   - {fileID: 11400000, guid: 91c83e003b356814f866ea1a63f9e3b3, type: 2}
   - {fileID: 11400000, guid: 94502eb26e7bb4e4895e2da7f10dbbfe, type: 2}
-  BackMaterial: {fileID: 2100000, guid: 5adc76ad3311b2647a9532a252f4cc62, type: 2}
+  - {fileID: 11400000, guid: dcaeb36c3af77954493a8e6de24e1bdf, type: 2}
+  BackSprite: {fileID: 21300000, guid: 27672d2b71a2b5040ac702cd369df929, type: 3}
+  ArmourFromTrash: 5
+  PlayerShipPrefab: {fileID: 4640082839775715069, guid: 81ddaef9d4697d84ba75e74a69f45a43, type: 3}
+  EnemyShipPrefab: {fileID: 1770588729010736245, guid: bffac15ab19a54a4dad63ea5b57a6b0b, type: 3}
 --- !u!4 &385260177
 Transform:
   m_ObjectHideFlags: 0

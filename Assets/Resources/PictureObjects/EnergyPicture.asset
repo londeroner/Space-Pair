@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e5f21758f6e8a43b6afb1e10928127, type: 3}
   m_Name: EnergyPicture
   m_EditorClassIdentifier: 
-  PictureMaterial: {fileID: 2100000, guid: dec9fbf0d235b174abfd27536aa25aaa, type: 2}
+  PictureSprite: {fileID: 21300000, guid: 534ad67c995746f4487d4e52168994bf, type: 3}
   PictureContent: 4

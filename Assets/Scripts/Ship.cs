@@ -13,6 +13,9 @@ public class Ship : MonoBehaviour
     public List<DefenseModule> DefenseModules = new List<DefenseModule>();
     public List<EnergyModule> EnergyModules = new List<EnergyModule>();
 
+    public bool IsEnemyShip = false;
+    public Transform SpawnShipPoint;
+
     [HideInInspector] public bool Destroyed = false;
 
     private void Awake()
@@ -21,6 +24,17 @@ public class Ship : MonoBehaviour
 
         // TEMP Before RPG system implement
         Stats.CurrentHP = Stats.MaxHP;
+
+        if (IsEnemyShip)
+        {
+            var go = Instantiate(GameSettings.instance.EnemyShipPrefab, SpawnShipPoint);
+            go.transform.eulerAngles = new Vector3(180f, 90f, -130f);
+        }
+        else
+        {
+            var go = Instantiate(GameSettings.instance.PlayerShipPrefab, SpawnShipPoint);
+            go.transform.eulerAngles = new Vector3(0f, 90f, -50f);
+        }
     }
 
     void Start()
@@ -90,9 +104,9 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        var bullet = Instantiate(GameManager.instance.BulletPrefab, transform);
+        var bullet = Instantiate(GameManager.instance.BulletPrefab, SpawnShipPoint, false);
 
-        bullet.GetComponent<Projectile>().SetupProjectile(gameObject, target.gameObject, damage);
+        bullet.GetComponent<Projectile>().SetupProjectile(gameObject, target.gameObject, damage, target.SpawnShipPoint.position);
     }
 
     public void Defense()
@@ -159,6 +173,11 @@ public class Ship : MonoBehaviour
             Destroyed = true;
             Destroy(gameObject);
         }
+    }
+
+    public void AddArmour(float amount)
+    {
+        Stats.Armour += amount;
     }
 }
 

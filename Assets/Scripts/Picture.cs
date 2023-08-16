@@ -2,22 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Picture : MonoBehaviour
 {
-    public bool MaterialSet = false;
+    [HideInInspector] public bool MaterialSet = false;
 
     [HideInInspector] public bool Revealed = false;
     [HideInInspector] public PictureManager PictureManager;
 
-    public string ComparativeHash;
+    [HideInInspector] public string ComparativeHash;
 
-    public PictureContent PictureContent;
+    [HideInInspector] public PictureContent PictureContent;
 
     public event Action OnRemove;
 
-    private Material _firstMaterial;
-    private Material _secondMaterial;
+    public Image BackImage;
+    public Image FrontImage;
 
     private Quaternion _currentRotation;
 
@@ -28,50 +29,35 @@ public class Picture : MonoBehaviour
         _currentRotation = gameObject.transform.rotation;
     }
 
-    void OnMouseDown()
+    public void PictureClick()
     {
         if (!Revealed && GameManager.instance.TurnState == TurnState.PlayerTurn && !GameManager.instance.IsGameFinished)
         {
             Flip();
         }
     }
-
     public void Flip()
     {
         Revealed = true;
         AI.instance.AddToMemory(this);
         GameManager.instance.RevealPicture(this);
-        StartCoroutine(LoopRotation(45, false));
+        StartCoroutine(LoopRotation(false));
     }
 
     public void FlipBack()
     {
         Revealed = false;
-        StartCoroutine(LoopRotation(45, true));
+        StartCoroutine(LoopRotation(true));
     }
 
-    private IEnumerator LoopRotation(float angle, bool flipBack)
+    private IEnumerator LoopRotation(bool flipBack)
     {
-        var rot = 0f;
-        const float dir = 1f;
-        const float rotSpeed = 180.0f;
-        var startAngle = angle;
-        var assigned = false;
-
         if (flipBack)
         {
             yield return new WaitForSeconds(1.5f);
-            while (rot < angle)
+            while (FrontImage.fillAmount > 0)
             {
-                var step = Time.deltaTime * rotSpeed;
-                gameObject.GetComponent<Transform>().Rotate(new Vector3(0, 2, 0) * step * dir);
-                if (rot >= (startAngle -2) && !assigned)
-                {
-                    ApplyFirstMaterial();
-                    assigned = true;
-                }
-
-                rot += (step * dir);
+                FrontImage.fillAmount -= 0.01f;
                 yield return null;
             }
 
@@ -86,45 +72,32 @@ public class Picture : MonoBehaviour
         }
         else
         {
-            while (angle > 0)
+            while (FrontImage.fillAmount < 1)
             {
-                var step = Time.deltaTime * rotSpeed;
-                gameObject.GetComponent<Transform>().Rotate(new Vector3(0, 2, 0) * step * dir);
-                angle -= (step * dir);
+                FrontImage.fillAmount += 0.01f;
                 yield return null;
             }
 
-            ApplySecondMaterial();
         }
 
         gameObject.GetComponent<Transform>().rotation = _currentRotation;
     }
 
-    public void SetFirstMaterial(Material mat)
+    public void SetFirstSprite(Sprite sprite)
     {
-        _firstMaterial = mat;
+        BackImage.sprite = sprite;
     }
 
-    public void SetSecondMaterial(Material mat, PictureContent content)
+    public void SetSecondSprite(Sprite sprite, PictureContent content)
     {
-        _secondMaterial = mat;
+        FrontImage.sprite = sprite;
 
         PictureContent = content;
 
         ///////////////////////////TEST
-        ComparativeHash = _secondMaterial.ToString();
+        ComparativeHash = sprite.ToString();
 
         MaterialSet = true;
-    }
-
-    public void ApplyFirstMaterial()
-    {
-        gameObject.GetComponent<Renderer>().material = _firstMaterial;
-    }
-
-    public void ApplySecondMaterial()
-    {
-        gameObject.GetComponent<Renderer>().material = _secondMaterial;
     }
 
     public void Disable()

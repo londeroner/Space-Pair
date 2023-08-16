@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PictureObject", menuName = "Pictures/PictureObject")]
 public class PictureObject : ScriptableObject
 {
-    public Material PictureMaterial;
+    public Sprite PictureSprite;
     public PictureContent PictureContent;
 }
 
@@ -16,6 +16,7 @@ public enum PictureContent
     Defense = 2,
     Resource = 3,
     Energy = 4,
-    PassiveUtility = 5,
-    ActiveUtility = 6
+    Trash = 5,
+    PassiveUtility = 6,
+    ActiveUtility = 7
 }
