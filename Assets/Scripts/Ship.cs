@@ -13,7 +13,7 @@ public class Ship : MonoBehaviour
     public List<DefenseModule> DefenseModules = new List<DefenseModule>();
     public List<EnergyModule> EnergyModules = new List<EnergyModule>();
 
-    public bool IsEnemyShip = false;
+    public bool IsEnemyShip = true;
     public Transform SpawnShipPoint;
 
     [HideInInspector] public bool Destroyed = false;
@@ -27,12 +27,12 @@ public class Ship : MonoBehaviour
 
         if (IsEnemyShip)
         {
-            var go = Instantiate(GameSettings.instance.EnemyShipPrefab, SpawnShipPoint);
+            var go = Instantiate(GameSettings.instance.EnemyShipModelPrefab, SpawnShipPoint);
             go.transform.eulerAngles = new Vector3(180f, 90f, -130f);
         }
         else
         {
-            var go = Instantiate(GameSettings.instance.PlayerShipPrefab, SpawnShipPoint);
+            var go = Instantiate(GameSettings.instance.PlayerShipModelPrefab, SpawnShipPoint);
             go.transform.eulerAngles = new Vector3(0f, 90f, -50f);
         }
     }
@@ -104,7 +104,7 @@ public class Ship : MonoBehaviour
             return;
         }
 
-        var bullet = Instantiate(GameManager.instance.BulletPrefab, SpawnShipPoint, false);
+        var bullet = Instantiate(GameManager.instance.BulletPrefab, SpawnShipPoint.position, Quaternion.Euler(0,90,0));
 
         bullet.GetComponent<Projectile>().SetupProjectile(gameObject, target.gameObject, damage, target.SpawnShipPoint.position);
     }
@@ -166,12 +166,21 @@ public class Ship : MonoBehaviour
 
     public void CheckDestroyed()
     {
-        //TODO
+        //TODO FINISH GAME
         if (Stats.CurrentHP <= 0)
         {
-            GameManager.instance.IsGameFinished = true;
+            // TEMP TEST GameManager.instance.IsGameFinished = true;
             Destroyed = true;
+
+            // TEMP TEST!
+
+            if (IsEnemyShip)
+            {
+                GameManager.instance.SpawnNewEnemy(transform.position, transform.rotation);
+            }
+
             Destroy(gameObject);
+
         }
     }
 

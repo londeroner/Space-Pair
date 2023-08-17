@@ -431,15 +431,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectsNumber: 10
   GameSceneName: GameScene
-  PictureObjects:
-  - {fileID: 11400000, guid: 94f7da8e3fd3c4b4fa56be4b7554d62a, type: 2}
-  - {fileID: 11400000, guid: 91c83e003b356814f866ea1a63f9e3b3, type: 2}
-  - {fileID: 11400000, guid: 94502eb26e7bb4e4895e2da7f10dbbfe, type: 2}
-  - {fileID: 11400000, guid: dcaeb36c3af77954493a8e6de24e1bdf, type: 2}
+  SpawnObjects:
+  - PictureObject: {fileID: 11400000, guid: 94f7da8e3fd3c4b4fa56be4b7554d62a, type: 2}
+    MaxCount: 20
+  - PictureObject: {fileID: 11400000, guid: 91c83e003b356814f866ea1a63f9e3b3, type: 2}
+    MaxCount: 2
+  - PictureObject: {fileID: 11400000, guid: 94502eb26e7bb4e4895e2da7f10dbbfe, type: 2}
+    MaxCount: 2
+  - PictureObject: {fileID: 11400000, guid: dcaeb36c3af77954493a8e6de24e1bdf, type: 2}
+    MaxCount: 2
   BackSprite: {fileID: 21300000, guid: 27672d2b71a2b5040ac702cd369df929, type: 3}
   ArmourFromTrash: 5
-  PlayerShipPrefab: {fileID: 4640082839775715069, guid: 81ddaef9d4697d84ba75e74a69f45a43, type: 3}
-  EnemyShipPrefab: {fileID: 1770588729010736245, guid: bffac15ab19a54a4dad63ea5b57a6b0b, type: 3}
+  PlayerShipModelPrefab: {fileID: 1158561113003540375, guid: 70bc6b6358059e04bbf40b0ecb70b375, type: 3}
+  EnemyShipModelPrefab: {fileID: 8310193472532158436, guid: dcdbafa8386db084794d27ea12244cf3, type: 3}
+  EnemyShipPrefab: {fileID: 3038720894736601344, guid: e1336e5a1ea22ad4d843483a9cf1165b, type: 3}
 --- !u!4 &385260177
 Transform:
   m_ObjectHideFlags: 0
@@ -448,7 +453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385260175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.0190763, y: -7.5060787, z: -0.8530165}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

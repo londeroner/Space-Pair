@@ -58,19 +58,28 @@ public class PictureManager : MonoBehaviour
 
     private void SetupPictures()
     {
+        Dictionary<PictureObject, (int, int)> dict = new Dictionary<PictureObject, (int, int)>();
+        dict.InitDictionary(GameSettings.instance.SpawnObjects);
+
         for (int i = 0; i < PictureList.Count; i++)
         {
             if (!PictureList[i].MaterialSet)
             {
-                var pictureObjects = GameSettings.instance.PictureObjects;
+                var spawnObjects = GameSettings.instance.SpawnObjects;
 
-                var rndMatIndex = Random.Range(0, pictureObjects.Count);
+                var rndMatIndex = Random.Range(0, spawnObjects.Count);
+
+                if (!dict.IsDictionaryFilled())
+                    while (!dict.IsIndexAvailable(spawnObjects[rndMatIndex].PictureObject)) rndMatIndex = Random.Range(0, spawnObjects.Count);
+
+                dict.IncDictionary(spawnObjects[rndMatIndex].PictureObject);
+
                 var rndObjectIndex = Random.Range(i + 1, PictureList.Count);
 
                 while (PictureList[rndObjectIndex].MaterialSet) rndObjectIndex = Random.Range(i + 1, PictureList.Count);
 
-                SetSprites(PictureList[i], pictureObjects[rndMatIndex].PictureSprite, pictureObjects[rndMatIndex].PictureContent);
-                SetSprites(PictureList[rndObjectIndex], pictureObjects[rndMatIndex].PictureSprite, pictureObjects[rndMatIndex].PictureContent);
+                SetSprites(PictureList[i], spawnObjects[rndMatIndex].PictureObject.PictureSprite, spawnObjects[rndMatIndex].PictureObject.PictureContent);
+                SetSprites(PictureList[rndObjectIndex], spawnObjects[rndMatIndex].PictureObject.PictureSprite, spawnObjects[rndMatIndex].PictureObject.PictureContent);
             }
         }
     }

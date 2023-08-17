@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public Ship PlayerShip;
     public Ship EnemyShip;
+    public Transform EnemyShipPosition;
 
     public GameObject BulletPrefab;
 
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+        BattleStarted += () => { SpawnNewEnemy(EnemyShipPosition.position, Quaternion.Euler(0, -180, 0)); };
     }
 
     void Start()
@@ -89,6 +91,24 @@ public class GameManager : MonoBehaviour
         {
             TurnEnd.Invoke(TurnState);
             TurnState = TurnState.PlayerTurn;
+        }
+    }
+
+    public void SpawnNewEnemy(Vector3 oldPosition, Quaternion oldRotation)
+    {
+        var go = Instantiate(GameSettings.instance.EnemyShipPrefab, new Vector3(oldPosition.x + 5f, oldPosition.y, oldPosition.z), oldRotation);
+        EnemyShip = go.GetComponent<Ship>();
+        go.GetComponent<Ship>().CalculateMaxEnergy();
+
+        StartCoroutine(MoveEnemy(oldPosition));
+    }
+
+    private IEnumerator MoveEnemy(Vector3 target)
+    {
+        while (EnemyShip.transform.position != target)
+        {
+            EnemyShip.transform.position = Vector3.MoveTowards(EnemyShip.transform.position, target, 7f * Time.deltaTime);
+            yield return 0;
         }
     }
 

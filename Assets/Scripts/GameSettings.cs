@@ -9,14 +9,16 @@ public class GameSettings : MonoBehaviour
 
     public string GameSceneName = "";
 
-    public List<PictureObject> PictureObjects;
+    public List<SpawnObject> SpawnObjects;
     public Sprite BackSprite;
 
     public float ArmourFromTrash;
 
     public static GameSettings instance;
 
-    public GameObject PlayerShipPrefab;
+    public GameObject PlayerShipModelPrefab;
+    public GameObject EnemyShipModelPrefab;
+
     public GameObject EnemyShipPrefab;
 
     private void Awake()
