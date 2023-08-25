@@ -336,7 +336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3216034706612128864
 Transform:
   m_ObjectHideFlags: 0
@@ -550,7 +550,7 @@ RectTransform:
   m_GameObject: {fileID: 1944874688301810702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.51386, y: 7.5971055, z: 0.51386}
+  m_LocalScale: {x: 0.61832774, y: 9.141597, z: 0.61832774}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4700535938991709630}
@@ -558,7 +558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 51.5, y: -1658}
+  m_AnchoredPosition: {x: 59.9, y: -1647}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6965446005951841427
@@ -905,7 +905,7 @@ RectTransform:
   m_GameObject: {fileID: 2377355821772239601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4266325, y: 1.4266325, z: 1.4266325}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2846101007002123121}
@@ -918,7 +918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34.7, y: -1855.9998}
+  m_AnchoredPosition: {x: 39.5, y: -1904}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2378304516611207872
@@ -1024,7 +1024,7 @@ RectTransform:
   m_GameObject: {fileID: 3480749865109764079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.51386, y: 7.5971055, z: 0.51386}
+  m_LocalScale: {x: 0.61832774, y: 9.141597, z: 0.61832774}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4700535938991709630}
@@ -1032,7 +1032,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: -1658}
+  m_AnchoredPosition: {x: -21.199999, y: -1647}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &921960223051829193
@@ -1157,8 +1157,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3709770964584137542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 73.4, y: -1669, z: 0}
-  m_LocalScale: {x: 13.960102, y: 143.62689, z: 13.960102}
+  m_LocalPosition: {x: 85.4, y: -1647, z: 0}
+  m_LocalScale: {x: 16.798191, y: 172.82623, z: 16.798191}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4700535938991709630}
@@ -1621,7 +1621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5248350360946835693
 Transform:
   m_ObjectHideFlags: 0
@@ -1725,7 +1725,7 @@ RectTransform:
   m_GameObject: {fileID: 5906945892842986741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4266325, y: 1.4266325, z: 1.4266325}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2467857667860096037}
@@ -1738,7 +1738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 34.7, y: -2040}
+  m_AnchoredPosition: {x: 39.5, y: -2180}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6543558538313574385
@@ -1766,8 +1766,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6543558538313574385}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.560265, y: -1669, z: 0}
-  m_LocalScale: {x: 13.960102, y: 143.62689, z: 13.960102}
+  m_LocalPosition: {x: -45, y: -1647, z: 0}
+  m_LocalScale: {x: 16.798191, y: 172.82623, z: 16.798191}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4700535938991709630}

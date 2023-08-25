@@ -57,7 +57,7 @@ public class Picture : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             while (FrontImage.fillAmount > 0)
             {
-                FrontImage.fillAmount -= 0.01f;
+                FrontImage.fillAmount -= 3f * Time.deltaTime;
                 yield return null;
             }
 
@@ -74,7 +74,7 @@ public class Picture : MonoBehaviour
         {
             while (FrontImage.fillAmount < 1)
             {
-                FrontImage.fillAmount += 0.01f;
+                FrontImage.fillAmount += 3f * Time.deltaTime;
                 yield return null;
             }
 
