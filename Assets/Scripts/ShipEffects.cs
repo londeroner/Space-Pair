@@ -16,6 +16,8 @@ public class ShipEffects : MonoBehaviour
     public Image EnergyBar;
     public TMP_Text ESText;
     public TMP_Text ArmourText;
+    public TMP_Text HPText;
+    public TMP_Text EnergyText;
 
     public GameObject NoEnergyText;
     [HideInInspector] public Vector3 NoEnergyTextStart;
@@ -38,6 +40,8 @@ public class ShipEffects : MonoBehaviour
         ESText.transform.rotation = Camera.main.transform.rotation;
         ArmourText.transform.rotation = Camera.main.transform.rotation;
         NoEnergyText.transform.rotation = Camera.main.transform.rotation;
+        HPText.transform.rotation = Camera.main.transform.rotation;
+        EnergyText.transform.rotation = Camera.main.transform.rotation;
         NoEnergyTextStart = NoEnergyText.transform.position;
     }
 
@@ -51,7 +55,14 @@ public class ShipEffects : MonoBehaviour
 
             ESText.text = _ship.Stats.ES.ToString();
             ArmourText.text = _ship.Stats.Armour.ToString();
-            HPBar.fillAmount = _ship.Stats.CurrentHP / _ship.Stats.MaxHP;
+            HPText.text = _ship.Stats.CurrentHP.ToString();
+            EnergyText.text = _ship.Stats.CurrentEnergy.ToString();
+
+            float k = _ship.Stats.CurrentHP / _ship.Stats.MaxHP * 10;
+            SetImagePartically(HPBar, _ship.Stats.CurrentHP / _ship.Stats.MaxHP * 10);
+            SetImagePartically(EnergyBar, _ship.Stats.CurrentEnergy / _ship.Stats.MaxEnergy * 10);
+
+
             EnergyBar.fillAmount = _ship.Stats.CurrentEnergy / _ship.Stats.MaxEnergy;
 
             if (oldESState != (_ship.Stats.ES > 0))
@@ -82,6 +93,14 @@ public class ShipEffects : MonoBehaviour
         }
 
         NoEnergyText.SetActive(false);
+    }
+
+    private void SetImagePartically(Image image, float k)
+    {
+        if (k * 10 % 10 == 0)
+            image.fillAmount = ((int)k) / 10f;
+        else
+            image.fillAmount = ((int)(k + 1)) / 10f;
     }
 
     void OnDestroy()

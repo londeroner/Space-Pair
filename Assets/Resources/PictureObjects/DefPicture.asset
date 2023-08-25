@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e5f21758f6e8a43b6afb1e10928127, type: 3}
   m_Name: DefPicture
   m_EditorClassIdentifier: 
-  PictureSprite: {fileID: 21300000, guid: aeb47fcfbaed5f04ab3732933d6e838d, type: 3}
+  PictureSprite: {fileID: 21300000, guid: bbae2d084d408634ebb84021f72d3e24, type: 3}
   PictureContent: 2

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e5f21758f6e8a43b6afb1e10928127, type: 3}
   m_Name: TrashPicture
   m_EditorClassIdentifier: 
-  PictureSprite: {fileID: 21300000, guid: 8777eefe44471d94d9ee3e1a7e30ef15, type: 3}
+  PictureSprite: {fileID: 21300000, guid: a6280ff875867a4419d387a21bebe481, type: 3}
   PictureContent: 5

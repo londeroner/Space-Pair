@@ -194,7 +194,7 @@ public class Ship : MonoBehaviour
 public struct ShipStats
 {
     public float MaxHP;
-    [HideInInspector] public float CurrentHP;
+    public float CurrentHP;
     public float ES;
     public float Armour;
 

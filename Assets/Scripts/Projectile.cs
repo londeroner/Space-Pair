@@ -22,6 +22,8 @@ public class Projectile : MonoBehaviour
         _damage = damage;
         _targetState = GameManager.instance.TurnState;
 
+        transform.LookAt(targetPosition);
+
         _step = new Vector3(_targetPosition.x, 0f, 0f);
 
         GameManager.instance.TurnEnd += MoveInvoke;

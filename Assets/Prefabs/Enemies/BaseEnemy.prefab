@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2103596952250326758, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: m_Name
-      value: Ship
+      value: BaseEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: Stats.ES
@@ -93,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: Stats.MaxHP
-      value: 60
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 2142899580577883404, guid: 5f6a8350aa51abc4b9bde57e56abf689, type: 3}
       propertyPath: Stats.Armour
