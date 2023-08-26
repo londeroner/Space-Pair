@@ -13,6 +13,8 @@ public class Ship : MonoBehaviour
     public List<DefenseModule> DefenseModules = new List<DefenseModule>();
     public List<EnergyModule> EnergyModules = new List<EnergyModule>();
 
+    public List<ApplicableEffect> StatModifiers = new List<ApplicableEffect>();
+
     public bool IsEnemyShip = true;
     public Transform SpawnShipPoint;
 
@@ -48,6 +50,20 @@ public class Ship : MonoBehaviour
     public Damage CalculateDamage(bool shooting = true)
     {
         float energy = 0f, kinetic = 0f;
+        float energyAdd = 0f, energyMult = 1f, kineticAdd = 0f, kineticMult = 1f;
+        float dmgAdd = 0f, dmgMult = 1f;
+
+        foreach (var effect in StatModifiers)
+        {
+            dmgAdd += effect.StatModifier.DamageInc;
+            dmgMult *= effect.StatModifier.DamageMult != 0 ? effect.StatModifier.DamageMult : 1;
+
+            energyAdd += effect.StatModifier.EnergyDmgInc;
+            energyMult *= effect.StatModifier.EnergyDmgMult != 0 ? effect.StatModifier.EnergyDmgMult : 1;
+
+            kineticAdd += effect.StatModifier.KineticDmgInc;
+            kineticMult *= effect.StatModifier.KineticDmgMult != 0 ? effect.StatModifier.KineticDmgMult : 1;
+        }
 
         foreach (var module in AttackModules)
         {
@@ -57,10 +73,10 @@ public class Ship : MonoBehaviour
                 switch (module.DamageType)
                 {
                     case DamageType.Kinetic:
-                        kinetic += module.Damage;
+                        kinetic += (module.Damage + kineticAdd + dmgAdd) * dmgMult * kineticMult;
                         break;
                     case DamageType.Energy:
-                        energy += module.Damage;
+                        energy += (module.Damage + energyAdd + dmgAdd) * dmgMult * energyMult;
                         break;
                 }
             }
@@ -180,13 +196,19 @@ public class Ship : MonoBehaviour
             }
 
             Destroy(gameObject);
-
         }
     }
 
     public void AddArmour(float amount)
     {
         Stats.Armour += amount;
+    }
+
+    public void AddEffectStatModifier(EffectStatModifier effect)
+    {
+        ApplicableEffect applicableEffect = new ApplicableEffect(effect.Duration, effect.StatModifier, this);
+
+        StatModifiers.Add(applicableEffect);
     }
 }
 
