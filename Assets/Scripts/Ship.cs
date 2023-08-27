@@ -83,7 +83,10 @@ public class Ship : MonoBehaviour
             else StartCoroutine(GetComponent<ShipEffects>().ShowNoEnergy());
         }
 
-        return new Damage(kinetic, energy);
+        var result = new Damage(kinetic, energy);
+
+        GetComponent<ShipEffects>().SetAttackText(result);
+        return result;
     }
 
     public void CalculateMaxEnergy(bool refillToFull = true)
@@ -192,6 +195,8 @@ public class Ship : MonoBehaviour
 
             if (IsEnemyShip)
             {
+                RewardManager.instance.gameObject.SetActive(true);
+                RewardManager.instance.SetupRewards();
                 GameManager.instance.SpawnNewEnemy(transform.position, transform.rotation);
             }
 
@@ -209,6 +214,8 @@ public class Ship : MonoBehaviour
         ApplicableEffect applicableEffect = new ApplicableEffect(effect.Duration, effect.StatModifier, this);
 
         StatModifiers.Add(applicableEffect);
+
+        GetComponent<ShipEffects>().SetAttackText(CalculateDamage(false));
     }
 }
 

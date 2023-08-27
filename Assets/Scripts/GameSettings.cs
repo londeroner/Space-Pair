@@ -21,6 +21,8 @@ public class GameSettings : MonoBehaviour
 
     public GameObject EnemyShipPrefab;
 
+    public List<Reward> RewardPool = new List<Reward>();
+
     private void Awake()
     {
         if (instance == null)

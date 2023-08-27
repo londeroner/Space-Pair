@@ -18,6 +18,7 @@ public class ShipEffects : MonoBehaviour
     public TMP_Text ArmourText;
     public TMP_Text HPText;
     public TMP_Text EnergyText;
+    public TMP_Text AttackText;
 
     public GameObject NoEnergyText;
     [HideInInspector] public Vector3 NoEnergyTextStart;
@@ -42,7 +43,10 @@ public class ShipEffects : MonoBehaviour
         NoEnergyText.transform.rotation = Camera.main.transform.rotation;
         HPText.transform.rotation = Camera.main.transform.rotation;
         EnergyText.transform.rotation = Camera.main.transform.rotation;
+        AttackText.transform.rotation = Camera.main.transform.rotation;
         NoEnergyTextStart = NoEnergyText.transform.position;
+
+        SetAttackText(_ship.CalculateDamage(false));
     }
 
     void Update()
@@ -53,10 +57,10 @@ public class ShipEffects : MonoBehaviour
         {
             _updateCounter = 0;
 
-            ESText.text = _ship.Stats.ES.ToString();
-            ArmourText.text = _ship.Stats.Armour.ToString();
-            HPText.text = _ship.Stats.CurrentHP.ToString();
-            EnergyText.text = _ship.Stats.CurrentEnergy.ToString();
+            ESText.text = ((int)_ship.Stats.ES).ToString();
+            ArmourText.text = ((int)_ship.Stats.Armour).ToString();
+            HPText.text = ((int)_ship.Stats.CurrentHP).ToString();
+            EnergyText.text = ((int)_ship.Stats.CurrentEnergy).ToString();
 
             float k = _ship.Stats.CurrentHP / _ship.Stats.MaxHP * 10;
             SetImagePartically(HPBar, _ship.Stats.CurrentHP / _ship.Stats.MaxHP * 10);
@@ -78,6 +82,11 @@ public class ShipEffects : MonoBehaviour
                 oldReflectState = newState;
             }
         }
+    }
+
+    public void SetAttackText(Damage Damage)
+    {
+        AttackText.text = ((int)(Damage.Kinetic + Damage.Energy)).ToString();
     }
 
     public IEnumerator ShowNoEnergy()

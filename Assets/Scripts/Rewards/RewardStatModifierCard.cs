@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardStatModifier : MonoBehaviour
+public class RewardStatModifierCard : MonoBehaviour
 {
     public EffectStatModifier effect;
     public Sprite Icon;
@@ -13,6 +13,14 @@ public class RewardStatModifier : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    public void SetupReward(RewardStatModifierSO reward)
+    {
+        effect = reward.effectStatModifier;
+        Icon = reward.Icon;
+
         transform.Find("Canvas/Icon").gameObject.GetComponent<Image>().sprite = Icon;
 
         StringBuilder description = new StringBuilder();
@@ -63,5 +71,6 @@ public class RewardStatModifier : MonoBehaviour
     public void ApplyEffect()
     {
         GameManager.instance.PlayerShip.AddEffectStatModifier(effect);
+        RewardManager.instance.DestroyRewardWindow();
     }
 }
