@@ -106,6 +106,14 @@ public class Ship : MonoBehaviour
 
     public void RefillEnergy()
     {
+        float addedEnergy = 0f, multEnergy = 1f;
+
+        foreach (var effect in StatModifiers)
+        {
+            addedEnergy += effect.StatModifier.EnergyInc;
+            multEnergy *= effect.StatModifier.EnergyMult != 0 ? effect.StatModifier.EnergyMult : 1;
+        }
+
         foreach (var module in EnergyModules)
         {
             Stats.CurrentEnergy += module.EnergyRefill;
@@ -131,6 +139,15 @@ public class Ship : MonoBehaviour
     public void Defense()
     {
         float es = 0f, avgRatio = -1f;
+
+        float addedEs = 0f, multEs = 1f;
+
+        foreach (var effect in StatModifiers)
+        {
+            addedEs += effect.StatModifier.ESInc;
+            multEs *= effect.StatModifier.ESMult != 0 ? effect.StatModifier.ESMult : 1;
+        }
+
         foreach (var module in DefenseModules)
         {
             if (module.EnergyConsumption <= Stats.CurrentEnergy)
@@ -138,7 +155,7 @@ public class Ship : MonoBehaviour
                 Stats.CurrentEnergy -= module.EnergyConsumption;
 
                 Stats.Armour += module.DefenceEffect.BonusArmour;
-                es += module.DefenceEffect.MaxES;
+                es += (module.DefenceEffect.MaxES + addedEs) * multEs;
 
                 if (module.CanReflect)
                 {

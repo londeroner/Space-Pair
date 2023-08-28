@@ -448,6 +448,7 @@ MonoBehaviour:
   EnemyShipPrefab: {fileID: 3038720894736601344, guid: e1336e5a1ea22ad4d843483a9cf1165b, type: 3}
   RewardPool:
   - {fileID: 11400000, guid: de61352e9193ca648989104bc88a91d1, type: 2}
+  - {fileID: 11400000, guid: cc2d61564628a1a40928d32a89be5932, type: 2}
 --- !u!4 &385260177
 Transform:
   m_ObjectHideFlags: 0
