@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
             yield return 0;
         }
 
-        if (transform.position == _targetPosition)
+        if (transform.position.x == _targetPosition.x && transform.position.y == _targetPosition.y)
         {
             var targetShip = _target.GetComponent<Ship>();
 

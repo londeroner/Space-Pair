@@ -82,14 +82,15 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
+        Picture.RevealedCount = 0;
         if (TurnState == TurnState.PlayerTurn)
         {
-            TurnEnd.Invoke(TurnState);
+            TurnEnd?.Invoke(TurnState);
             TurnState = TurnState.AITurn;
         }
         else
         {
-            TurnEnd.Invoke(TurnState);
+            TurnEnd?.Invoke(TurnState);
             TurnState = TurnState.PlayerTurn;
         }
     }

@@ -22,6 +22,8 @@ public class Picture : MonoBehaviour
 
     private Quaternion _currentRotation;
 
+    public static int RevealedCount = 0;
+
     private static int _flippedCount;
 
     void Start()
@@ -31,8 +33,9 @@ public class Picture : MonoBehaviour
 
     public void PictureClick()
     {
-        if (!Revealed && GameManager.instance.TurnState == TurnState.PlayerTurn && !GameManager.instance.IsGameFinished)
+        if (!Revealed && GameManager.instance.TurnState == TurnState.PlayerTurn && !GameManager.instance.IsGameFinished && RevealedCount < 2)
         {
+            RevealedCount++;
             Flip();
         }
     }

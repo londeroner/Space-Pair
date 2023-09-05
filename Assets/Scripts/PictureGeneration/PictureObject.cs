@@ -18,5 +18,6 @@ public enum PictureContent
     Energy = 4,
     Trash = 5,
     PassiveUtility = 6,
-    ActiveUtility = 7
+    ActiveUtility = 7,
+    Crystalls = 8
 }

@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    public void LoadSceen(string sceneName)
+    public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        if (sceneName == "Exit")
+            Application.Quit();
+        else SceneManager.LoadScene(sceneName);
     }
 }
